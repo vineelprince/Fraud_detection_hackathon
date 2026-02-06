@@ -8,7 +8,7 @@ from db_utils import authorized_emails
 # =====================================================
 st.set_page_config(
     page_title="FraudSense AI",
-    layout="centered"
+    layout="wide"
 )
 
 # =====================================================
@@ -16,8 +16,15 @@ st.set_page_config(
 # =====================================================
 st.markdown("""
 <style>
+:root {
+    --deep-navy: #0b1220;
+    --night-sky: #101b33;
+    --indigo: #2b1b6d;
+    --accent: #62d2ff;
+    --soft-white: rgba(255, 255, 255, 0.88);
+}
 .stApp {
-    background: linear-gradient(-45deg, #141e30, #243b55, #6a11cb, #2575fc);
+    background: linear-gradient(-45deg, #0b1220, #101b33, #2b1b6d, #0f2a52);
     background-size: 400% 400%;
     animation: gradientBG 18s ease infinite;
     font-family: 'Poppins', sans-serif;
@@ -28,16 +35,17 @@ st.markdown("""
     100% {background-position: 0% 50%;}
 }
 .hero-title {
-    font-size: 50px;
+    font-size: 56px;
     font-weight: 900;
-    text-align: center;
+    text-align: left;
     color: #ffffff;
 }
 .hero-subtitle {
-    font-size: 18px;
-    text-align: center;
-    color: #e0e0e0;
-    margin-bottom: 30px;
+    font-size: 20px;
+    text-align: left;
+    color: var(--soft-white);
+    margin-bottom: 20px;
+    line-height: 1.6;
 }
 .glass-card {
     background: rgba(255, 255, 255, 0.18);
@@ -47,6 +55,73 @@ st.markdown("""
     margin-bottom: 25px;
     color: white;
     box-shadow: 0 10px 35px rgba(0,0,0,0.35);
+}
+.feature-card {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 22px;
+    border-radius: 20px;
+    color: white;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.35);
+    height: 100%;
+}
+.feature-title {
+    font-size: 20px;
+    font-weight: 700;
+}
+.pill {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(98, 210, 255, 0.16);
+    color: #9be7ff;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+.section-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 5px;
+}
+.section-subtitle {
+    color: var(--soft-white);
+    margin-bottom: 20px;
+}
+.section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    margin: 10px 0 30px;
+}
+.trusted-logo {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 12px 16px;
+    text-align: center;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.6px;
+}
+.signal-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: white;
+    height: 100%;
+}
+.signal-title {
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+.cta-card {
+    background: linear-gradient(120deg, rgba(98, 210, 255, 0.18), rgba(255, 81, 47, 0.15));
+    border-radius: 24px;
+    padding: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: white;
 }
 .stButton>button {
     background: linear-gradient(135deg, #ff512f, #dd2476);
@@ -70,6 +145,26 @@ st.markdown("""
     font-size: 14px;
     font-weight: bold;
     color: black;
+}
+.metric-card {
+    background: rgba(255, 255, 255, 0.12);
+    padding: 18px 20px;
+    border-radius: 16px;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.metric-number {
+    font-size: 26px;
+    font-weight: 800;
+}
+.chat-chip {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 8px 14px;
+    border-radius: 18px;
+    margin-right: 8px;
+    display: inline-block;
+    font-size: 13px;
+    color: white;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -109,41 +204,171 @@ st.divider()
 # =====================================================
 # HERO SECTION
 # =====================================================
-st.markdown("<div class='hero-title'>🧠 FraudSense AI</div>", unsafe_allow_html=True)
+hero_left, hero_right = st.columns([1.1, 0.9], gap="large")
+with hero_left:
+    st.markdown("<div class='pill'>AI-Powered RiskOps</div>", unsafe_allow_html=True)
+    st.markdown("<div class='hero-title'>🧠 FraudSense AI</div>", unsafe_allow_html=True)
+    st.markdown(
+        "<div class='hero-subtitle'>Deliver a premium fraud defense experience with "
+        "dynamic risk scoring, behavioral intelligence, and adaptive signals built "
+        "for modern fintech teams.</div>",
+        unsafe_allow_html=True
+    )
+    if st.button("Launch the AI Suite →"):
+        st.switch_page("pages/1_Dashboard.py")
+    st.markdown(
+        "<span class='chat-chip'>Risk Scoring</span>"
+        "<span class='chat-chip'>Behavioral Signals</span>"
+        "<span class='chat-chip'>Trusted Customers</span>",
+        unsafe_allow_html=True
+    )
+
+with hero_right:
+    st.image(
+        "https://illustrations.popsy.co/white/artificial-intelligence.svg",
+        use_container_width=True
+    )
+    metric_cols = st.columns(2)
+    with metric_cols[0]:
+        st.markdown(
+            "<div class='metric-card'><div class='metric-number'>99.2%</div>Detection Precision</div>",
+            unsafe_allow_html=True
+        )
+    with metric_cols[1]:
+        st.markdown(
+            "<div class='metric-card'><div class='metric-number'>4.8s</div>Risk Response</div>",
+            unsafe_allow_html=True
+        )
+
+st.divider()
+
+# =====================================================
+# INSPIRATION SECTION
+# =====================================================
+st.markdown("<div class='section-title'>✨ Inspired by Elite Fraud Platforms</div>", unsafe_allow_html=True)
 st.markdown(
-    "<div class='hero-subtitle'>Multi-layer Fraud Detection with Trust Intelligence</div>",
+    "<div class='section-subtitle'>Experience a premium-first interface that mirrors the clarity "
+    "and confidence of industry leaders.</div>",
     unsafe_allow_html=True
 )
 
-st.image(
-    "https://illustrations.popsy.co/white/artificial-intelligence.svg",
-    use_container_width=True
-)
+trusted_cols = st.columns(5)
+trusted_labels = ["TRUSTED BY", "E-COMMERCE", "NEO BANKS", "PAYMENTS", "CRYPTO"]
+for col, label in zip(trusted_cols, trusted_labels):
+    with col:
+        st.markdown(f"<div class='trusted-logo'>{label}</div>", unsafe_allow_html=True)
+
+st.markdown("<div class='section-divider'></div>", unsafe_allow_html=True)
+
+inspire_cols = st.columns(3)
+inspiration = [
+    ("Sift", "AI-driven fraud detection and dynamic risk scoring for e-commerce."),
+    ("Feedzai", "Comprehensive, real-time RiskOps for banking and fintech."),
+    ("Signifyd", "Guaranteed fraud protection and chargeback coverage."),
+    ("SEON", "Flexible API-based detection with social and digital footprinting."),
+    ("Salv Bridge", "Collaborative detection between institutions with rapid recovery."),
+    ("BioCatch", "Behavioral biometrics that analyze motion and typing signals.")
+]
+for idx, (title, desc) in enumerate(inspiration):
+    with inspire_cols[idx % 3]:
+        st.markdown(
+            f"<div class='feature-card'><div class='feature-title'>{title}</div>"
+            f"<p style='color:var(--soft-white);margin-top:8px;'>{desc}</p></div>",
+            unsafe_allow_html=True
+        )
 
 st.divider()
 
 # =====================================================
 # FEATURE MODULES
 # =====================================================
-col1, col2, col3 = st.columns(3)
+st.markdown("<div class='section-title'>🚀 Core Modules</div>", unsafe_allow_html=True)
+st.markdown(
+    "<div class='section-subtitle'>Deploy multi-layer protection in minutes across "
+    "email, transaction, and conversational channels.</div>",
+    unsafe_allow_html=True
+)
+col1, col2, col3 = st.columns(3, gap="large")
 
 with col1:
-    st.markdown("<div class='glass-card' style='text-align:center;'>📧<h3>Email Fraud</h3></div>", unsafe_allow_html=True)
+    st.markdown(
+        "<div class='feature-card'>📧<div class='feature-title'>Email Fraud</div>"
+        "<p style='color:var(--soft-white);'>Verify trusted senders, detect phishing, "
+        "and enrich email intelligence.</p></div>",
+        unsafe_allow_html=True
+    )
     if st.button("Explore", key="email"):
         st.switch_page("pages/2_Email_Fraud_Detection.py")
 
 with col2:
-    st.markdown("<div class='glass-card' style='text-align:center;'>🧩<h3>Scenario Fraud</h3></div>", unsafe_allow_html=True)
+    st.markdown(
+        "<div class='feature-card'>🧩<div class='feature-title'>Scenario Fraud</div>"
+        "<p style='color:var(--soft-white);'>Simulate real-world attack patterns and "
+        "triage high-risk behaviors.</p></div>",
+        unsafe_allow_html=True
+    )
     if st.button("Explore", key="scenario"):
         st.switch_page("pages/3_Scenario_Fraud_Detection.py")
 
 with col3:
-    st.markdown("<div class='glass-card' style='text-align:center;'>🤖<h3>AI Chatbot</h3></div>", unsafe_allow_html=True)
+    st.markdown(
+        "<div class='feature-card'>🤖<div class='feature-title'>AI Assistant</div>"
+        "<p style='color:var(--soft-white);'>Instant guidance, policy insights, "
+        "and fraud education with a premium chat UI.</p></div>",
+        unsafe_allow_html=True
+    )
     if st.button("Chat", key="chatbot"):
         st.switch_page("pages/v_chatbot.py")
 
+st.divider()
 
+# =====================================================
+# SIGNAL INTELLIGENCE
+# =====================================================
+st.markdown("<div class='section-title'>🛰️ Signal Intelligence</div>", unsafe_allow_html=True)
+st.markdown(
+    "<div class='section-subtitle'>Blend device, identity, behavioral, and transaction "
+    "signals into a unified risk narrative.</div>",
+    unsafe_allow_html=True
+)
 
+signal_cols = st.columns(3, gap="large")
+signals = [
+    ("Device & Identity", "Detect anomalies across device fingerprints, geolocation, and session hygiene."),
+    ("Behavioral Biometrics", "Spot account takeover by analyzing typing cadence and mouse velocity."),
+    ("Network & Velocity", "Catch rapid-fire transactions, mule rings, and coordinated attacks.")
+]
+for col, (title, desc) in zip(signal_cols, signals):
+    with col:
+        st.markdown(
+            f"<div class='signal-card'><div class='signal-title'>{title}</div>"
+            f"<p style='color:var(--soft-white);margin-top:6px;'>{desc}</p></div>",
+            unsafe_allow_html=True
+        )
+
+st.divider()
+
+# =====================================================
+# CTA SECTION
+# =====================================================
+cta_left, cta_right = st.columns([1.2, 0.8], gap="large")
+with cta_left:
+    st.markdown(
+        "<div class='cta-card'><div class='section-title'>Ready to orchestrate RiskOps?</div>"
+        "<p style='color:var(--soft-white);margin-top:8px;'>Launch workflows that pair ML "
+        "scoring with trusted-customer intelligence. Add a transaction below to see "
+        "the trust score engine respond.</p></div>",
+        unsafe_allow_html=True
+    )
+with cta_right:
+    st.markdown(
+        "<div class='metric-card'><div class='metric-number'>4 Layers</div>Signals + ML + Rules + Trust</div>",
+        unsafe_allow_html=True
+    )
+    st.markdown(
+        "<div class='metric-card' style='margin-top:12px;'><div class='metric-number'>24/7</div>Continuous Monitoring</div>",
+        unsafe_allow_html=True
+    )
 
 st.divider()
 
